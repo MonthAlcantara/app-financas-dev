@@ -1,17 +1,40 @@
 package br.com.onzedevs.finansdev.domain.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.com.onzedevs.finansdev.domain.enums.Sexo;
 
+@Entity
+@Table(name = "fisica")
 public class Fisica {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String cpf;
+	
+	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
+	
 	private String rg;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Pessoa.class)
 	private Pessoa pessoa;
 	
+//	Constructor
 	public Fisica() {}
 
+//	Getts and Setts
 	private Long getId() { return id; }
 
 	public String getCpf() { return cpf; }

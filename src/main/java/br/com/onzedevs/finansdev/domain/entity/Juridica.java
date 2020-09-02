@@ -1,20 +1,47 @@
 package br.com.onzedevs.finansdev.domain.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "juridica")
 public class Juridica {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
 	private String fantasia;
+	
+	@Column(unique = true, nullable = false)
 	private String cnpj;
+	
 	private String razaoSocial;
+	
+	@Column(name = "inscricao_estadual")
 	private String inscricaoEstadual;
+	
+	@Column(name = "inscricao_nacional")
 	private String inscricaoNacional;
+	
 	private String crt;
 	private String cnae;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Pessoa.class)
 	private Pessoa pessoa;
 	
+//	Constructor
 	public Juridica() {}
 
-
+//	Getts and Setts
 	private Long getId() { return id; }
 
 	public String getFantasia() { return fantasia; }
